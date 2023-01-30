@@ -1,0 +1,93 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .login--wrapper {
+            display: flex;
+            align-items: center;
+            height: 80vh;
+            justify-content: center;
+        }
+
+        .form {
+            width: 400px;
+        }
+
+        .box-element1{
+            box-shadow:hsl(0, 0%, 88%) 0 0 16px;
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 10px;
+        }
+    </style>
+        <div class="col-lg-6-center">
+            <div class="box-element1">
+                 <div class="login--wrapper">
+
+                    {% if page == 'login' %}
+                        <form method='POST' class="form" >
+                            <h4 style="text-align: center;">Login to make an Order</h4>
+                            {% csrf_token %}
+                            <br>
+                            <div class="form-group">
+                                {% for message in messages %}
+                                    <div class="alert alert-warning" role="alert">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label" ></label>
+                                <input required type="text" class="form-control" name="username" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Enter username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label"></label>
+                                <input required type="password" class="form-control" name="password" id="exampleInputPassword1"
+                                       placeholder="Enter password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <div class="mb-3"> Don't have an account yet ? <a href="{% url 'register' %}">Register</a></div>
+                        </form>
+                    {% else %}
+                        <form method='POST' class="form">
+                            <h4 style="text-align: center;">Registration</h4>
+                            {% csrf_token %}
+                            <br>
+                            <div class="form-group">
+                                {% for message in messages %}
+                                    <div class="alert alert-warning" role="alert">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label"></label>
+                                <input required type="text" class="form-control" name="username"
+                                    aria-describedby="emailHelp" placeholder="Username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label"></label>
+                                <input required type="email" class="form-control" name="email"
+                                    aria-describedby="emailHelp" placeholder="Enter email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label"></label>
+                                <input required type="password" class="form-control" name="password1" placeholder="Enter password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label"></label>
+                                <input required type="password" class="form-control" name="password2" placeholder="Confirm password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button><br>
+                            <div class="mb-3">Already have an account ? <a href="{% url 'login' %}">Login</a></div>
+
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

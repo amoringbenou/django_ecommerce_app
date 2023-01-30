@@ -1,0 +1,50 @@
+{% extends 'store/main.html' %} {% load static %} {% block content %}
+<div class="row">
+	{% for product in products %}
+	<div class="col-lg-4">
+		<img class="thumbnail center" src="{{product.imageURL}}" alt="{product.name}" />
+		<div class="box-element product">
+			<h6><strong>{{product.name}}</strong></h6>
+			<hr />
+			<a href="{% url 'cart' %}">
+				<button data-product="{{product.id}}" data-action="add"
+					class="btn btn-outline-secondary add-btn update-cart">
+					Add to Cart
+				</button>
+			</a>
+			<a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">View</a>
+			<h4 style="display: inline-block; float: right">
+				<strong>${{product.price}}</strong>
+			</h4>
+		</div>
+		<br />
+	</div>
+	{% endfor %}
+</div>
+<div style="display: center;">
+	{% if products.has_other_pages %}
+		<ul class="pagination">
+			{% if products.has_previous %}
+				<li><a href="?page={{ products.previous_page_number }}"> Previous</a></li>
+			{% else %}
+				<li class="disabled"><span>&laquo;</span></li>
+			{% endif %}
+			{% for i in products.paginator.page_range %}
+				{% if products.number == i %}
+					<li class="active">
+						<button>{{ i }} <span class="sr-only">(current)</span> </button>
+					</li>
+				{% else %}
+					<li><button> <a href="?page={{ i }}"> {{ i }}</a> </button></li>
+				{% endif %}
+			{% endfor %}
+			{% if products.has_next %}
+				<li><a href="?page={{ products.next_page_number }}"> Next</a></li>
+			{% else %}
+				<li class="disabled"><span>&raquo;</span></li>
+			{% endif %}
+		</ul>
+	{% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+	<div class="col-lg-8" style="margin: auto;">
+		<div style="text-align: center;">
+			<div class="box-element-product" >
+                <img class="thumbnail"  src="{{product.imageURL}}" alt="{product.name}" />
+			</div>
+            
+		</div>
+		<br>
+
+		<div>
+			<div class="box-element">
+				<h3 style="text-align: center;">Product Detail</h3>
+				<br>
+				<table class="table">
+					<p style="display: inline-block;">Name : {{product.name}}</p>
+					<br>
+					<p style="display: inline-block;">Price : ${{product.price|floatformat:2}}</p>
+					<br>
+					<div style="display: inline-block;">
+						<p>Description :</p>
+						<p>{{product.description}}</p>
+					</div>
+				</table>
+				<a href="{% url 'cart' %}">
+					<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">
+						Add to Cart
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
